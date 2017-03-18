@@ -8,13 +8,15 @@ class NotesEditor extends Component {
     render() {
         return (
             <div className="notes-editor">
-                <textarea
-                    className="notes-editor-textarea"
-                    rows={10}
-                    autoFocus
-                />
-                <div className="notes-editor-actions">
-                    <button className="notes-editor-btn">Add</button>
+                <div className="container">
+                    <textarea
+                        className="notes-editor-textarea"
+                        rows={8}
+                        autoFocus
+                    />
+                    <div className="notes-editor-actions">
+                        <button className="notes-editor-btn">Add note</button>
+                    </div>
                 </div>
             </div>
         );
@@ -25,20 +27,24 @@ class NotesGrid extends Component {
     render() {
         const {notes} = this.props;
         return (
-            <div className="notes-grid">
-                {
-                    notes.map((note) => {
-                        const {
-                            id,
-                            text
-                        } = note;
-                        return (
-                            <Note key={id}>
-                                {text}
-                            </Note>
-                        )
-                    })
-                }
+            <div className="notes-content">
+                <div className="container">
+                    <div className="notes-grid">
+                        {
+                            notes.map((note) => {
+                                const {
+                                    id,
+                                    text
+                                } = note;
+                                return (
+                                    <Note key={id}>
+                                        {text}
+                                    </Note>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
             </div>
         );
     }
@@ -88,11 +94,9 @@ class NotesApp extends Component {
         const {notes} = this.state;
         return (
             <div className="notes">
-                <div className="container">
-                    <NotesHeader />
-                    <NotesEditor />
-                    <NotesGrid notes={notes} />
-                </div>
+                <NotesHeader />
+                <NotesEditor />
+                <NotesGrid notes={notes} />
             </div>
         );
     }
