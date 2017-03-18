@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import NotesApp from './NotesApp';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <NotesApp />,
   document.getElementById('root')
 );
