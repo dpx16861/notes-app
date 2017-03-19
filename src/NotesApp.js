@@ -1,41 +1,19 @@
 import React, { Component } from 'react';
-
 import { NotesHeader } from './NotesHeader';
-
 import './NotesApp.css';
 
-class NotesEditor extends Component {
-    render() {
-        return (
-            <div className="notes-editor">
-                <div className="container">
-                    <textarea
-                        className="notes-editor-textarea"
-                        rows={8}
-                        autoFocus
-                    />
-                    <div className="notes-editor-actions">
-                        <button className="notes-editor-btn">Add note</button>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+const ENTER_KEY = 13;
 
 class NotesGrid extends Component {
     render() {
-        const {notes} = this.props;
+        const { notes } = this.props;
         return (
             <div className="notes-content">
                 <div className="container">
                     <div className="notes-grid">
                         {
                             notes.map((note) => {
-                                const {
-                                    id,
-                                    text
-                                } = note;
+                                const { id, text } = note;
                                 return (
                                     <Note key={id}>
                                         {text}
@@ -52,51 +30,115 @@ class NotesGrid extends Component {
 
 class Note extends Component {
     render() {
-        const {children} = this.props;
         return (
             <div className="notes-item">
-                {children}
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+class NotesEditor extends Component {
+    constructor() {
+        super();
+        this.state = {
+            text: ''
+        };
+    }
+
+    handleTextChange = (e) => {
+        this.setState({
+            text: e.target.value
+        });
+    }
+
+    handleNoteAdd = () => {
+        const val = this.state.text.trim();
+
+        const newNote = {
+            text: val,
+            id: Date.now()
+        };
+
+        if (val) {
+            this.props.onNoteAdd(newNote);
+            this.resetState();
+        } else {
+            this.resetState();
+        }
+    }
+
+    handleKeyDown = (e) => {
+        if (e.which === ENTER_KEY) {
+            e.preventDefault();
+            this.handleNoteAdd();
+        }
+    }
+
+    resetState() {
+        this.setState({
+            text: ''
+        });
+    }
+
+    render() {
+        return (
+            <div className="notes-editor">
+                <div className="container">
+                    <textarea
+                        className="notes-editor-textarea"
+                        rows={8}
+                        placeholder="New note..."
+                        autoFocus
+                        value={this.state.text}
+                        onKeyDown={this.handleKeyDown}
+                        onChange={this.handleTextChange}
+                    />
+
+                    <div className="notes-editor-actions">
+                        <button className="notes-editor-btn" onClick={this.handleNoteAdd}>
+                            Add note
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 class NotesApp extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            notes: [
-                {
-                    id: 1,
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda perferendis laboriosam eveniet, in iusto, deserunt aspernatur explicabo doloremque iste cupiditate inventore ipsam quis vel ex sed culpa incidunt facere! Mollitia?'
-                },
-                {
-                    id: 2,
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime impedit cum, voluptatibus asperiores voluptates. Maiores distinctio eius mollitia placeat earum voluptatem quisquam deleniti, excepturi, nemo aliquid vero natus soluta ducimus!'
-                },
-                {
-                    id: 3,
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae reiciendis quidem, odit exercitationem, ut, dolor numquam assumenda mollitia commodi illum quisquam repellendus quos soluta veniam nemo dolores culpa amet libero!'
-                },
-                {
-                    id: 4,
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore voluptas, quae itaque modi iusto illo, dolores voluptates possimus molestiae veniam, iste laudantium explicabo obcaecati debitis accusamus eos perspiciatis impedit consequuntur!'
-                },
-                {
-                    id: 5,
-                    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus fugiat saepe necessitatibus rerum, sunt ea, obcaecati esse sit reprehenderit eveniet. Maiores accusantium quo repellat sunt, sit quia, voluptatem non error?'
-                }
-            ]
+            notes: []
+        };
+    }
+
+    componentDidMount() {
+        const savedNotes = JSON.parse(localStorage.getItem('notes'));
+
+        if (savedNotes) {
+            this.setState({ notes: savedNotes });
         }
     }
 
+    componentDidUpdate() {
+        const notes = JSON.stringify(this.state.notes);
+        localStorage.setItem('notes', notes);
+    }
+
+    handleNoteAdd = (newNote) => {
+        this.setState({
+            notes: [newNote, ...this.state.notes]
+        });
+    }
+
     render() {
-        const {notes} = this.state;
         return (
             <div className="notes">
                 <NotesHeader />
-                <NotesEditor />
-                <NotesGrid notes={notes} />
+                <NotesEditor onNoteAdd={this.handleNoteAdd} />
+                <NotesGrid notes={this.state.notes} />
             </div>
         );
     }
