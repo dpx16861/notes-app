@@ -15,12 +15,13 @@ class NotesList extends Component {
                     <div className="notes-list">
                         {
                             notes.map((note) => {
-                                const { id, text } = note;
+                                const { id, text, color } = note;
                                 return (
                                     <NotesItem
                                         key={id}
                                         id={id}
                                         onNoteDelete={onNoteDelete}
+                                        color={color}
                                     >
                                         {text}
                                     </NotesItem>

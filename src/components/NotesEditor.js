@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 
-const ENTER_KEY = 13;
+import NotesColorPicker from './NotesColorPicker';
+
+import { ENTER_KEY, DEFAULT_COLOR, COLORS } from '../utils/constants';
 
 class NotesEditor extends Component {
     constructor() {
         super();
         this.state = {
-            text: ''
+            text: '',
+            color: DEFAULT_COLOR
         };
     }
 
@@ -21,7 +24,8 @@ class NotesEditor extends Component {
 
         const newNote = {
             text: val,
-            id: Date.now()
+            id: Date.now(),
+            color: this.state.color
         };
 
         if (val) {
@@ -37,6 +41,10 @@ class NotesEditor extends Component {
             e.preventDefault();
             this.handleNoteAdd();
         }
+    }
+
+    handleColorSelect = (color) => {
+        this.setState({ color });
     }
 
     resetState() {
@@ -60,6 +68,7 @@ class NotesEditor extends Component {
                     />
 
                     <div className="notes-editor-actions">
+                        <NotesColorPicker onColorSelect={this.handleColorSelect} colors={COLORS} />
                         <button className="notes-editor-btn" onClick={this.handleNoteAdd}>
                             Add note
                         </button>

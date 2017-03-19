@@ -7,7 +7,7 @@ class NotesItem extends Component {
 
     render() {
         return (
-            <div className="notes-item">
+            <div className="notes-item" style={{ backgroundColor: this.props.color }}>
                 <button className="notes-item-delete" onClick={this.handleNoteDelete}>
                     <span>×</span>
                 </button>

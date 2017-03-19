@@ -31,6 +31,7 @@
 
 .notes-editor-actions {
     display: flex;
+    align-items: center;
     margin-top: 25px;
 }
 
@@ -46,12 +47,32 @@
     font-size: 14px;
     background: #7953b5;
     color: #fff;
+    text-decoration: none;
+    user-select: none;
     cursor: pointer;
     transition: .2s background;
 }
 
 .notes-editor-btn:hover {
     background: #6d48a7;
+}
+
+.notes-color-picker-btn {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    margin-right: 10px;
+    background: none;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.notes-color-picker-btn.is-active {
+    box-shadow: inset 0 0 0 4px #f1f4f5;
 }
 
 .notes-content {
@@ -61,7 +82,6 @@
 .notes-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     margin: -20px 0 0 -20px;
 }
 
@@ -71,7 +91,6 @@
     width: calc(33.333% - 20px);
     margin: 20px 0 0 20px;
     padding: 20px;
-    background: yellowgreen;
     user-select: none;
     cursor: default;
 }
@@ -79,17 +98,17 @@
 .notes-item-delete {
     box-sizing: border-box;
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 6px;
+    right: 6px;
     display: block;
-    width: 20px;
-    height: 20px;
-    line-height: 18px;
+    width: 16px;
+    height: 16px;
+    line-height: 15px;
     padding: 0;
     border-radius: 100%;
-    border: 1px solid rgba(255,255,255,.6);
-    color: rgba(255,255,255,.6);
-    font-size: 18px;
+    border: 1px solid rgba(0,0,0,.5);
+    color: rgba(0,0,0,.5);
+    font-size: 15px;
     text-align: center;
     background: none;
     outline: 0;
@@ -98,11 +117,11 @@
 }
 
 .notes-item-delete:hover {
-    border-color: rgba(255,255,255,1);
-    color: rgba(255,255,255,1);
+    border-color: rgba(0,0,0,1);
+    color: rgba(0,0,0,1);
 }
 
 .notes-item-delete span {
     position: relative;
-    top: -1px;
+    top: -2px;
 }
