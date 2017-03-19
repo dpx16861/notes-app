@@ -19,6 +19,10 @@ class NotesEditor extends Component {
         });
     }
 
+    handleColorChange = (color) => {
+        this.setState({ color });
+    }
+
     handleNoteAdd = () => {
         const val = this.state.text.trim();
 
@@ -43,10 +47,6 @@ class NotesEditor extends Component {
         }
     }
 
-    handleColorSelect = (color) => {
-        this.setState({ color });
-    }
-
     resetState() {
         this.setState({
             text: ''
@@ -68,7 +68,7 @@ class NotesEditor extends Component {
                     />
 
                     <div className="notes-editor-actions">
-                        <NotesColorPicker onColorSelect={this.handleColorSelect} colors={COLORS} />
+                        <NotesColorPicker onColorChange={this.handleColorChange} colors={COLORS} />
                         <button className="notes-editor-btn" onClick={this.handleNoteAdd}>
                             Add note
                         </button>

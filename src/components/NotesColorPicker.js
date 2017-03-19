@@ -5,11 +5,11 @@ class NotesColorPicker extends Component {
         super();
         this.state = {
             isSelected: 0
-        }
+        };
     }
 
-    handleColorSelect = (color, index) => {
-        this.props.onColorSelect(color);
+    handleColorChange = (color, index) => {
+        this.props.onColorChange(color);
 
         this.setState({
             isSelected: index
@@ -27,7 +27,7 @@ class NotesColorPicker extends Component {
                             <button
                                 className={`notes-color-picker-btn ${activeClass}`}
                                 key={index}
-                                onClick={this.handleColorSelect.bind(null, color, index)}
+                                onClick={this.handleColorChange.bind(null, color, index)}
                                 style={{ backgroundColor: color }}
                             />
                         )
