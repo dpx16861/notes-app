@@ -4,16 +4,16 @@ class NotesColorPicker extends Component {
     constructor() {
         super();
         this.state = {
-            isActive: [1]
+            isSelected: 0
         }
     }
 
     handleColorSelect = (color, index) => {
         this.props.onColorSelect(color);
 
-        let isActive = [];
-        isActive[index] = !isActive[index];
-        this.setState({ isActive });
+        this.setState({
+            isSelected: index
+        });
     }
 
     render() {
@@ -22,13 +22,14 @@ class NotesColorPicker extends Component {
             <div className="notes-color-picker">
                 {
                     colors.map((color, index) => {
+                        const activeClass = (this.state.isSelected === index ? 'is-active' : '');
                         return (
                             <button
-                                className={`notes-color-picker-btn ${this.state.isActive[index] ? 'is-active' : ''}`}
+                                className={`notes-color-picker-btn ${activeClass}`}
                                 key={index}
                                 onClick={this.handleColorSelect.bind(null, color, index)}
                                 style={{ backgroundColor: color }}
-                            ></button>
+                            />
                         )
                     })
                 }
