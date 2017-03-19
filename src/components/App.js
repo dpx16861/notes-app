@@ -4,6 +4,8 @@ import NotesHeader from './NotesHeader';
 import NotesEditor from './NotesEditor';
 import NotesList from './NotesList';
 
+import { LOCALSTORAGE_NAMESPACE } from '../utils/constants';
+
 import './App.css';
 
 class App extends Component {
@@ -15,7 +17,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const savedNotes = JSON.parse(localStorage.getItem('notes'));
+        const savedNotes = JSON.parse(localStorage.getItem(LOCALSTORAGE_NAMESPACE));
 
         if (savedNotes) {
             this.setState({ notes: savedNotes });
@@ -24,7 +26,7 @@ class App extends Component {
 
     componentDidUpdate() {
         const notes = JSON.stringify(this.state.notes);
-        localStorage.setItem('notes', notes);
+        localStorage.setItem(LOCALSTORAGE_NAMESPACE, notes);
     }
 
     handleNoteAdd = (newNote) => {
