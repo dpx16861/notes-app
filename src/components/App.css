@@ -58,7 +58,7 @@
     margin-bottom: 40px;
 }
 
-.notes-grid {
+.notes-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
