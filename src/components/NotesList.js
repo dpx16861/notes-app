@@ -4,7 +4,11 @@ import NotesItem from './NotesItem';
 
 class NotesList extends Component {
     render() {
-        const { notes } = this.props;
+        const {
+            notes,
+            onNoteDelete
+        } = this.props;
+
         return (
             <div className="notes-content">
                 <div className="container">
@@ -13,7 +17,11 @@ class NotesList extends Component {
                             notes.map((note) => {
                                 const { id, text } = note;
                                 return (
-                                    <NotesItem key={id}>
+                                    <NotesItem
+                                        key={id}
+                                        id={id}
+                                        onNoteDelete={onNoteDelete}
+                                    >
                                         {text}
                                     </NotesItem>
                                 )

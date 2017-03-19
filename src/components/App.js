@@ -33,12 +33,21 @@ class App extends Component {
         });
     }
 
+    handleNoteDelete = (noteId) => {
+        this.setState({
+            notes: this.state.notes.filter(note => note.id !== noteId)
+        });
+    }
+
     render() {
         return (
             <div className="notes">
                 <NotesHeader />
                 <NotesEditor onNoteAdd={this.handleNoteAdd} />
-                <NotesList notes={this.state.notes} />
+                <NotesList
+                    notes={this.state.notes}
+                    onNoteDelete={this.handleNoteDelete}
+                />
             </div>
         );
     }

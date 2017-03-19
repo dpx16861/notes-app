@@ -66,9 +66,43 @@
 }
 
 .notes-item {
+    position: relative;
     box-sizing: border-box;
     width: calc(33.333% - 20px);
     margin: 20px 0 0 20px;
     padding: 20px;
     background: yellowgreen;
+    user-select: none;
+    cursor: default;
+}
+
+.notes-item-delete {
+    box-sizing: border-box;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    padding: 0;
+    border-radius: 100%;
+    border: 1px solid rgba(255,255,255,.6);
+    color: rgba(255,255,255,.6);
+    font-size: 18px;
+    text-align: center;
+    background: none;
+    outline: 0;
+    cursor: pointer;
+    transition: .2s border-color, .2s color;
+}
+
+.notes-item-delete:hover {
+    border-color: rgba(255,255,255,1);
+    color: rgba(255,255,255,1);
+}
+
+.notes-item-delete span {
+    position: relative;
+    top: -1px;
 }
